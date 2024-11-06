@@ -15,9 +15,9 @@ export default function Home() {
         <h1 className="text-white font-black tracking-tighter text-xl">VOX</h1>
 
         <nav className="hidden md:flex space-x-6">
-         <a href="#" className="text-white hover:text-gray-600">Home</a>
-         <a href="#" className="text-white hover:text-gray-600">Account</a>
-         <a href="#" className="text-white hover:text-gray-600">Journal</a>
+         <a href="" className="text-white hover:text-gray-600">Home</a>
+         <a href="" className="text-white hover:text-gray-600">Account</a>
+         <a href="" className="text-white hover:text-gray-600">Journal</a>
         </nav>
 
       </div>

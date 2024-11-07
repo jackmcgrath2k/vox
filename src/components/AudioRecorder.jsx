@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useLeopard } from "@picovoice/leopard-react";
 
 export default function AudioRecorder() {
@@ -14,7 +14,7 @@ export default function AudioRecorder() {
       startRecording,
       stopRecording,
       isRecording: leopardIsRecording,
-      recordingElapsedSec, //set this to 1m 58s, max for leopard is 2m i belive, also only have 5hrs allowance, on top of CNLP limits
+      recordingElapsedSec, //set this to 1m 58s, max for leopard is 2m i beleive, also only have 5hrs allowance, on top of CNLP limits
       release,
   } = useLeopard();
   const leopardModel = {

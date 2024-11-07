@@ -14,7 +14,7 @@ export default function AudioRecorder() {
       startRecording,
       stopRecording,
       isRecording: leopardIsRecording,
-      recordingElapsedSec,
+      recordingElapsedSec, //set this to 1m 58s, max for leopard is 2m i belive, also only have 5hrs allowance, on top of CNLP limits
       release,
   } = useLeopard();
   const leopardModel = {

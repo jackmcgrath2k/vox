@@ -3,11 +3,7 @@ import { useLeopard } from "@picovoice/leopard-react";
 
 export default function AudioRecorder() {
     const [isRecording, setIsRecording] = useState(false);
-    const [audioChunks, setAudioChunks] = useState([]);
     const [transcription, setTranscription] = useState(null);
-    const [audioUrl, setAudioUrl] = useState(null);
-    const mediaRecorder = useRef(null);
-    const mimeType = "audio/webm";
     const [sentimentResult, setSentimentResult] = useState(null);
     const {
       result,
@@ -63,30 +59,13 @@ export default function AudioRecorder() {
 
     const startRecordingHandler = async () => { //start recording
       setIsRecording(true);
-      setAudioChunks([]);
       startRecording();
-
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      mediaRecorder.current = new MediaRecorder(stream, {type: mimeType});
-      mediaRecorder.current.ondataavailable = (event) => {
-        if (event.data.size > 0) {
-          setAudioChunks((prevChunks) => [...prevChunks, event.data]);
-        }
-      };
-      mediaRecorder.current.start();
     };
 
     const stopRecordingHandler = async () => { //stop recording
       setIsRecording(false);
-      mediaRecorder.current.stop();
       stopRecording();
 
-     
-        const audioBlob = new Blob(audioChunks, {type: mimeType});
-        const audioUrl = URL.createObjectURL (audioBlob);
-        setAudioUrl(audioUrl);
-        await processFile(audioBlob);
-      
     };
   
   return (

@@ -41,3 +41,8 @@ next-env.d.ts
 
 # Ignore the specific .pv file
 *.pv
+
+./google-credentials
+.google-credentials
+/google-credentials
+/google-credentials/

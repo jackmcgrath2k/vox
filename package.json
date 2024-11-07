@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google-cloud/language": "^6.5.0",
     "@picovoice/leopard-react": "^2.0.2",
     "@picovoice/web-voice-processor": "^4.0.9",
     "next": "15.0.2",

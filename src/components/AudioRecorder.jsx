@@ -7,8 +7,8 @@ export default function AudioRecorder() {
     const [transcription, setTranscription] = useState(null);
     const [audioUrl, setAudioUrl] = useState(null);
     const mediaRecorder = useRef(null);
-    const mimeType = "audio/wav";
-
+    const mimeType = "audio/webm";
+    const [sentimentResult, setSentimentResult] = useState(null);
     const {
       result,
       isLoaded,
@@ -21,7 +21,6 @@ export default function AudioRecorder() {
       recordingElapsedSec,
       release,
   } = useLeopard();
-
   const leopardModel = {
       base64: process.env.NEXT_PUBLIC_LEOPARD_MODEL_BASE64
   };
@@ -36,9 +35,29 @@ export default function AudioRecorder() {
   useEffect(() => {
     if (result !== null) {
       console.log('Transcription Result:', result); 
-      setTranscription(result.transcript); 
-    }
-  }, [result]);
+      setTranscription(result.transcript); //need to take and save this - maybe to a db like supabase? pass val to vertexAI for analysis
+      
+      fetch("api/sentiment", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({transcriptionText: result.transcript}),
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.sentimentScore !== undefined) {
+          setSentimentResult({
+            score: data.sentimentScore,
+            magnitude: data.sentimentMagnitude,
+          });
+        }
+      })
+    .catch((error) => {
+      console.error("Error fetching sentiment analysis:", error);
+    });
+}
+}, [result]); 
     
   
 
@@ -86,19 +105,18 @@ export default function AudioRecorder() {
           </button>
       ) : null}
         </div>
-        <div>
+        <div className="p-5 font-semibold text-white">
           {transcription && <p>{transcription}</p>}
         </div>
-
-
         <div>
-        {audioUrl && (
-          <div>
-            <audio src={audioUrl} controls></audio>
-            <a download href={audioUrl}>Download recording</a>
-          </div>
-        )}
-       </div>
+          {sentimentResult && (
+            <div>
+              <p>Sentiment Score: {sentimentResult.score}</p>
+              <p>Sentiment Magnitude: {sentimentResult.magnitude}</p>
+            </div>
+          )}
+        </div>
+     
 </div>
   )
 }

@@ -2,16 +2,16 @@
 Journaling should be available to all. Some find it difficult to articulate themselves, some are unable to write, and some can't find the time but want to start. VOX uses AI technologies for Speech-to-text and sentiment analysis to help users keep track of their mental health and get their thoughts out.
 
 ### Technologies:
-Picovoice AI (Leopard)
-VertexAI
-React
-Next.js
-Node.js
+- React
+- Next.js
+- Picovoice AI (Leopard)
+- Cloud Natural Language API
+- Node.js
 
 
 
 
-
+## Other info
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

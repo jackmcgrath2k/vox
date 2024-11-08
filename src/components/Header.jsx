@@ -1,5 +1,9 @@
 import React from 'react'
 import Link from 'next/link';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Separator } from "@/components/ui/separator"
+
+
 
 
 export default function Header() {
@@ -13,11 +17,18 @@ export default function Header() {
         <Link href="/Dashboard" className="text-white hover:text-gray-600">
           Dashboard
         </Link>
+        <Separator orientation="vertical"/>
+
         <Link href="/Dashboard" className="text-white hover:text-gray-600">
           Journal
         </Link>
-        <Link href="/Dashboard" className="text-white hover:text-gray-600">
-          Account
+        <Separator orientation="vertical"/>
+
+        <Link href="/Dashboard" className="text-black hover:text-gray-600">
+          <Avatar>
+           <AvatarImage src="" />
+            <AvatarFallback>V</AvatarFallback>
+          </Avatar>
         </Link>
         </nav>
       </div>

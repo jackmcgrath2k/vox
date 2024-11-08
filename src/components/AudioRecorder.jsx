@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useLeopard } from "@picovoice/leopard-react";
+import { useToast } from "@/hooks/use-toast"
+import { Button } from "@/components/ui/button"
+import { ToastAction } from "@/components/ui/toast"
+
 
 export default function AudioRecorder() {
     const [isRecording, setIsRecording] = useState(false);
@@ -20,6 +24,7 @@ export default function AudioRecorder() {
   const leopardModel = {
       base64: process.env.NEXT_PUBLIC_LEOPARD_MODEL_BASE64
   };
+  const { toast } = useToast();
 
   //initialisation
   useEffect(() => {
@@ -67,6 +72,14 @@ export default function AudioRecorder() {
       stopRecording();
 
     };
+
+    function showToast() {
+      toast({
+        title: "Great! Your entry has been logged!",
+          description: "maybe a streak number or u can view all entries here",
+          action: <ToastAction altText="View">View</ToastAction>,
+      });
+    }
   
   return (
     <div className='audio-controls'>
@@ -84,6 +97,13 @@ export default function AudioRecorder() {
           </button>
       ) : null}
         </div>
+
+      <Button
+      variant="outline"
+      onClick={showToast}>
+      Show Toast
+    </Button>
+
         <div className="p-5 font-semibold text-white">
           {transcription && <p>{transcription}</p>}
         </div>

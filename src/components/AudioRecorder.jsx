@@ -97,15 +97,15 @@ export default function AudioRecorder() {
           </button>
       ) : null}
         </div>
+        <div className="p-5 font-semibold text-white">
+          {transcription && <p>{transcription}</p>}
 
-      <Button
+          <Button
       variant="outline"
       onClick={showToast}>
       Show Toast
     </Button>
 
-        <div className="p-5 font-semibold text-white">
-          {transcription && <p>{transcription}</p>}
         </div>
         <div>
           {sentimentResult && (

@@ -5,6 +5,8 @@ import Header from "../components/Header";
 import AudioRecorder from "../components/AudioRecorder";
 import { Toaster } from "@/components/ui/toaster";
 import Account from "@/components/Account";
+import Dashboard from "@/components/Dashboard";
+import DoughnutChart from "@/components/DoughnutChart";
 
 
 
@@ -18,7 +20,7 @@ export default function Home() {
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <AudioRecorder />
         <Toaster />
-        <Account />
+        <DoughnutChart />
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <div>

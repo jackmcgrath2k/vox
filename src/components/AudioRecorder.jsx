@@ -9,6 +9,7 @@ export default function AudioRecorder() {
     const [isRecording, setIsRecording] = useState(false);
     const [transcription, setTranscription] = useState(null);
     const [sentimentResult, setSentimentResult] = useState(null);
+    const [sentimentValue, setSentimentValue] = useState(null);
     const {
       result,
       isLoaded,
@@ -25,6 +26,22 @@ export default function AudioRecorder() {
       base64: process.env.NEXT_PUBLIC_LEOPARD_MODEL_BASE64
   };
   const { toast } = useToast();
+
+  function getSentimentValue(score) {
+    if (score >= 0.8 && score <= 1) {
+        return "very positive";
+    } else if (score >= 0.5 && score < 0.8) {
+        return "positive";
+    } else if (score >= 0 && score < 0.5) {
+        return "neutral";
+    } else if (score >= -0.5 && score < 0) {
+        return "negative";
+    } else if (score < -0.5 && score >= -1) {
+        return "very negative";
+    } else {
+        return "score out of expected range"
+    }
+}
 
   //initialisation
   useEffect(() => {
@@ -52,9 +69,12 @@ export default function AudioRecorder() {
             score: data.sentimentScore,
             magnitude: data.sentimentMagnitude,
           });
-        }
-      })
-    .catch((error) => {
+            // Convert sentiment score to value
+            const value = getSentimentValue(data.sentimentScore);
+            setSentimentValue(value); // Save the sentiment value
+          }
+        })
+        .catch((error) => {
       console.error("Error fetching sentiment analysis:", error);
     });
 }
@@ -112,6 +132,7 @@ export default function AudioRecorder() {
             <div>
               <p>Sentiment Score: {sentimentResult.score}</p>
               <p>Sentiment Magnitude: {sentimentResult.magnitude}</p>
+              <p>Sentiment Value: {sentimentValue}</p> 
             </div>
           )}
         </div>

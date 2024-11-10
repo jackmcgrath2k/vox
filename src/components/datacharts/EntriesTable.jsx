@@ -122,12 +122,13 @@ const columns = [
   },
   {
     accessorKey: "Mood",
-    header: () => <div className="text-right">Mood</div>,
+    header: () => <div className="">Mood</div>,
     cell: ({ row }) => (
         <div className="capitalize">{row.getValue("Mood")}</div>
       ),
   },
   {
+    accessorKey: "Actions",
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {

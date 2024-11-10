@@ -4,7 +4,7 @@ import React from "react";
 import Header from "../components/Header";
 import AudioRecorder from "../components/AudioRecorder";
 import { Toaster } from "@/components/ui/toaster";
-import Account from "@/components/Account";
+import Account from "@/pages/Account";
 
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+import '../app/globals.css'
 import {
   Card,
   CardContent,
@@ -34,12 +35,13 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
-import { Button } from "./ui/button";
+import { Button } from "../components/ui/button";
 import { Gem } from 'lucide-react';
 import { Input } from "@/components/ui/input"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
+import Header from "../components/Header";
 
 
 
@@ -52,6 +54,7 @@ export default function Account() {
 
   return (
     <div>
+      <Header />
     <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
       <Tabs defaultValue="account" className="w-[400px]">

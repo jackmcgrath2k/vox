@@ -3,6 +3,7 @@ import { useLeopard } from "@picovoice/leopard-react";
 import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
+import Link from 'next/link';
 
 
 export default function AudioRecorder() {
@@ -97,13 +98,13 @@ export default function AudioRecorder() {
       toast({
         title: "Great! Your entry has been logged!",
           description: "maybe a streak number or u can view all entries here",
-          action: <ToastAction altText="View">View</ToastAction>,
+          action: <Link href="/Journal"><ToastAction altText="View">View</ToastAction></Link>,
       });
     }
   
   return (
-    <div className='audio-controls'>
-      <div className="flex gap-4 items-center flex-col sm:flex-row">
+    <div className='flex gap-4 items-center flex-col sm:flex-col'>
+      <div className="">
       {isRecording === false ? (
                   <button onClick={startRecordingHandler}
                   className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5" >
@@ -116,17 +117,17 @@ export default function AudioRecorder() {
             Stop Recording
           </button>
       ) : null}
+      
         </div>
+        <p className="text-gray-300 font-light text-xs text-center opacity-60">*A limit of 2 minutes for recording is enforced for memory saving purposes.</p>
         <div className="p-5 font-semibold text-white">
           {transcription && <p>{transcription}</p>}
-
-          <Button
-      variant="outline"
-      onClick={showToast}>
-      Show Toast
-    </Button>
-
         </div>
+        <Button
+          variant="outline"
+          onClick={showToast}>
+          Save Entry
+        </Button>
         <div>
           {sentimentResult && (
             <div>
@@ -140,3 +141,6 @@ export default function AudioRecorder() {
 </div>
   )
 }
+
+
+//        <p className="text-gray-300 font-light text-xs text-center">*A limit of 2 minutes for recording is enforced for memory saving purposes.</p>

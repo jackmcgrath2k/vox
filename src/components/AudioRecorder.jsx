@@ -172,13 +172,16 @@ export default function AudioRecorder() {
         <div className="p-5 font-semibold text-white">
           {transcription && <p>{transcription}</p>}
         </div>
-        <Button
+        <div>
+          {(transcription && sentimentResult) && (
+            <div>
+          <Button
           variant="outline"
           onClick={showToast}>
           Save Entry
-        </Button>
-        <TooltipProvider>
-        <Tooltip>
+          </Button>
+          <TooltipProvider>
+          <Tooltip>
           <TooltipTrigger>
             <Button className="bg-transparent">
               <DotLottieReact
@@ -190,8 +193,11 @@ export default function AudioRecorder() {
           <TooltipContent>
             <p>Restart</p>
           </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+          </Tooltip>
+          </TooltipProvider>
+          </div>
+        )}
+      </div>
         <div>
           {sentimentResult && (
             <div>

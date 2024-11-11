@@ -5,7 +5,13 @@ import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
 import Link from 'next/link';
 import LoadingAnimation from "./LoadingAnimation";
-
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 
 export default function AudioRecorder() {
     const [isRecording, setIsRecording] = useState(false);
@@ -117,22 +123,52 @@ export default function AudioRecorder() {
       </div>
     ) : (
         <>
+        
       <div className="">
-      {isRecording === false ? (
-                  <button onClick={startRecordingHandler}
-                  className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5" >
-                  Start Recording
-                </button>
-      ) : null}
-      {isRecording === true ? (
-          <button onClick={stopRecordingHandler}
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44">
-            Stop Recording
-          </button>
-      ) : null}
-      
+      {(!transcription && !sentimentResult) && (
+        <>
+          {/* Show the Start Recording button when not recording */}
+          {isRecording === false ? (
+            <button
+              onClick={startRecordingHandler}
+              className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
+            >
+              Start Recording
+            </button>
+          ) : null}
+
+          {/* Show the Stop Recording button when recording */}
+          {isRecording === true ? (
+            <button
+              onClick={stopRecordingHandler}
+              className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
+            >
+              Stop Recording
+            </button>
+          ) : null}
+        </>
+      )}
+      <div className="text-center">
+              {sentimentValue === "very positive" && (
+            <h1 className="text-white font-bold text-7xl">Sounds like you had a great day today! Glad to hear!</h1>
+          )}
+          {sentimentValue === "positive" && (
+            <p className="text-white font-bold text-7xl">You're feeling good today! Keep it up!</p>
+          )}
+          {sentimentValue === "neutral" && (
+            <p className="text-white font-bold text-7xl">It seems like you're having a balanced day.</p>
+          )}
+          {sentimentValue === "negative" && (
+            <p className="text-white font-bold text-7xl">It sounds like today hasn't been the best. Hopefully, things get better!</p>
+          )}
+          {sentimentValue === "very negative" && (
+            <p className="text-white font-bold text-7xl">Oh no! It sounds like it's been a rough day. Hang in there!</p>
+          )}
+      </div>
         </div>
+        {(!transcription && !sentimentResult) && (
         <p className="text-gray-300 font-light text-xs text-center opacity-60">*A limit of 2 minutes for recording is enforced for memory saving purposes.</p>
+        )}
         <div className="p-5 font-semibold text-white">
           {transcription && <p>{transcription}</p>}
         </div>
@@ -141,6 +177,21 @@ export default function AudioRecorder() {
           onClick={showToast}>
           Save Entry
         </Button>
+        <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button className="bg-transparent">
+              <DotLottieReact
+                  src="https://lottie.host/24d7548e-60ec-4c84-a20f-e4f892a121a5/okfw45z7dh.lottie"
+                  autoplay
+                />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Restart</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
         <div>
           {sentimentResult && (
             <div>

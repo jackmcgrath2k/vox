@@ -102,6 +102,10 @@ export default function AudioRecorder() {
 
     };
 
+    const handleRefresh = () => {
+      window.location.reload();
+    };
+
     function showToast() {
       toast({
         title: "Great! Your entry has been logged!",
@@ -177,7 +181,7 @@ export default function AudioRecorder() {
         </Button>
         </div>
         <div className="mt-6">
-        <Button className="bg-transparent hover:bg-transparent">
+        <Button onClick={handleRefresh} className="bg-transparent hover:bg-transparent">
         <DotLottieReact
             src="https://lottie.host/24d7548e-60ec-4c84-a20f-e4f892a121a5/okfw45z7dh.lottie"
             loop

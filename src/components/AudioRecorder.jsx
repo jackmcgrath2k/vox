@@ -88,17 +88,29 @@ export default function AudioRecorder() {
     }
   }, [result]);
     
-  
+  useEffect(() => {
+    if (isRecording && recordingElapsedSec >= 120) { // stop before 2 minutes (120 seconds)
+      stopRecordingHandler();
+    }
+  }, [recordingElapsedSec, isRecording]);
+
+  const formatTime = (seconds) => {
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+  };
 
     const startRecordingHandler = async () => { //start recording
       setIsRecording(true);
       startRecording();
+
     };
 
     const stopRecordingHandler = async () => { //stop recording
       setIsRecording(false);
       stopRecording();
       setIsLoading(true);
+
 
     };
 
@@ -138,12 +150,19 @@ export default function AudioRecorder() {
 
           {/* Show the Stop Recording button when recording */}
           {isRecording === true ? (
+            <div>
+            <div>
             <button
               onClick={stopRecordingHandler}
               className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
             >
               Stop Recording
             </button>
+            </div>
+            <div className="text-center text-gray-300 opacity-70 mt-6">
+            <span>{formatTime(recordingElapsedSec)}</span>
+            </div>
+            </div>
           ) : null}
         </>
       )}

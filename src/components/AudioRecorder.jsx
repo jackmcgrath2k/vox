@@ -4,6 +4,7 @@ import { useToast } from "@/hooks/use-toast"
 import { Button } from "@/components/ui/button"
 import { ToastAction } from "@/components/ui/toast"
 import Link from 'next/link';
+import LoadingAnimation from "./LoadingAnimation";
 
 
 export default function AudioRecorder() {
@@ -27,6 +28,7 @@ export default function AudioRecorder() {
       base64: process.env.NEXT_PUBLIC_LEOPARD_MODEL_BASE64
   };
   const { toast } = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   function getSentimentValue(score) {
     if (score >= 0.8 && score <= 1) {
@@ -76,10 +78,14 @@ export default function AudioRecorder() {
           }
         })
         .catch((error) => {
-      console.error("Error fetching sentiment analysis:", error);
-    });
-}
-}, [result]); 
+          console.error("Error fetching sentiment analysis:", error);
+        })
+        .finally(() => {
+          setIsLoading(false);
+          console.log("Loading finished");
+        });
+    }
+  }, [result]);
     
   
 
@@ -91,6 +97,7 @@ export default function AudioRecorder() {
     const stopRecordingHandler = async () => { //stop recording
       setIsRecording(false);
       stopRecording();
+      setIsLoading(true);
 
     };
 
@@ -104,6 +111,12 @@ export default function AudioRecorder() {
   
   return (
     <div className='flex gap-4 items-center flex-col sm:flex-col'>
+    {isLoading ? (
+      <div>
+      <LoadingAnimation />
+      </div>
+    ) : (
+        <>
       <div className="">
       {isRecording === false ? (
                   <button onClick={startRecordingHandler}
@@ -137,7 +150,8 @@ export default function AudioRecorder() {
             </div>
           )}
         </div>
-     
+        </>
+     )}
 </div>
   )
 }

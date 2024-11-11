@@ -6,12 +6,7 @@ import { ToastAction } from "@/components/ui/toast"
 import Link from 'next/link';
 import LoadingAnimation from "./LoadingAnimation";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+
 
 export default function AudioRecorder() {
     const [isRecording, setIsRecording] = useState(false);
@@ -172,32 +167,26 @@ export default function AudioRecorder() {
         <div className="p-5 font-semibold text-white">
           {transcription && <p>{transcription}</p>}
         </div>
-        <div>
-          {(transcription && sentimentResult) && (
-            <div>
-          <Button
+        {(transcription && sentimentResult) && (
+          <div className="text-center">
+          <div>
+        <Button
           variant="outline"
           onClick={showToast}>
           Save Entry
-          </Button>
-          <TooltipProvider>
-          <Tooltip>
-          <TooltipTrigger>
-            <Button className="bg-transparent">
-              <DotLottieReact
-                  src="https://lottie.host/24d7548e-60ec-4c84-a20f-e4f892a121a5/okfw45z7dh.lottie"
-                  autoplay
-                />
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Restart</p>
-          </TooltipContent>
-          </Tooltip>
-          </TooltipProvider>
-          </div>
+        </Button>
+        </div>
+        <div className="mt-6">
+        <Button className="bg-transparent hover:bg-transparent">
+        <DotLottieReact
+            src="https://lottie.host/24d7548e-60ec-4c84-a20f-e4f892a121a5/okfw45z7dh.lottie"
+            loop
+            autoplay
+          />
+        </Button>
+        </div>
+        </div>
         )}
-      </div>
         <div>
           {sentimentResult && (
             <div>

@@ -45,9 +45,10 @@ const ToggleBookmark = () => {
 
 const JournalGrid = () => {
   return (
+    
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Open</Button>
+        <Button variant="outline">View Entries</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader>
@@ -149,6 +150,7 @@ const JournalGrid = () => {
         </div>
       </SheetContent>
     </Sheet>
+    
   )
 }
 

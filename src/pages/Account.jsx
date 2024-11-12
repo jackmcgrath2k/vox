@@ -126,13 +126,7 @@ export default function Account() {
                     <Label htmlFor="name" className="text-right">
                       Name
                     </Label>
-                    <Input id="name" value="Pedro Duarte" className="col-span-3" />
-                  </div>
-                  <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="username" className="text-right">
-                      Photo
-                    </Label>
-                    <Input id="username" value="@peduarte" className="col-span-3" />
+                    <Input id="name" value="Name Namerson" className="col-span-3" />
                   </div>
                 </div>
                 <DialogFooter>
@@ -148,7 +142,7 @@ export default function Account() {
                 <DialogHeader>
                   <DialogTitle>Change password</DialogTitle>
                   <DialogDescription>
-                    Make changes to your profile here. Click save when you're done.
+                    Here you can create a new password.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
@@ -156,13 +150,13 @@ export default function Account() {
                     <Label htmlFor="name" className="text-right">
                       Current password
                     </Label>
-                    <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                    <Input id="name" value="" className="col-span-3" />
                   </div>
                   <div className="grid grid-cols-4 items-center gap-4">
                     <Label htmlFor="username" className="text-right">
                       New password
                     </Label>
-                    <Input id="username" value="@peduarte" className="col-span-3" />
+                    <Input id="username" value="" className="col-span-3" />
                   </div>
                 </div>
                 <DialogFooter>
@@ -173,7 +167,7 @@ export default function Account() {
             </Dialog>
             <Dialog>
               <DialogTrigger asChild>
-                <Button>Subscription settings</Button>
+                <Button disabled>Subscription settings</Button>
               </DialogTrigger>
               <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
@@ -209,21 +203,14 @@ export default function Account() {
                 <DialogHeader>
                   <DialogTitle>Notification settings</DialogTitle>
                   <DialogDescription>
-                    Adjust your preferences for notifications.
+                    Adjust your preferences for email notifications.
                   </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4 py-4">
                   <div className="grid grid-cols-4 items-center gap-4">
-                    <Label htmlFor="name" className="text-right">
-                      Notifications
-                    </Label>
                     <Switch />
-                    <p className="text-xs text-gray-300">*Toggle notifications on or off</p>
                   </div>
                 </div>
-                <DialogFooter>
-                  <p>This can be adjusted anytime.</p>
-                </DialogFooter>
               </DialogContent>
             </Dialog>
             <Dialog>

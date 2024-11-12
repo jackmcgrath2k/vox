@@ -78,11 +78,20 @@ export default function AudioRecorder() {
             const value = getSentimentValue(data.sentimentScore);
             setSentimentValue(value); // Save the sentiment value
           }
-          if (data.moderationCategories !== undefined && data.moderationCategories.length > 0) {
-            console.log("Moderation Categories:", data.moderationCategories);
-            setModerationResult(data.moderationCategories); // Save moderation categories to state
-        }
-          })
+          if (data.moderationCategories && data.moderationCategories.length > 0) {
+            const selectedCategories = ['Death, Harm & Tragedy', 'Public Safety', 'Violent', 'Firearms & Weapons', 'Derogatory',];
+            
+            // Filter for categories that match the selected names AND have confidence > 0.5
+            const filteredModeration = data.moderationCategories.filter(category => 
+              selectedCategories.includes(category.name) && category.confidence > 0.5
+            );
+    
+            console.log("Filtered Moderation Categories:", filteredModeration);
+            setModerationResult(filteredModeration);  // Set filtered moderation categories
+          } else {
+            console.log("No moderation categories found.");
+          }
+        })
           .catch((error) => {
               console.error("Error fetching sentiment or moderation analysis:", error);
               })
@@ -215,26 +224,35 @@ export default function AudioRecorder() {
         </div>
         </div>
         )}
-        <div>
+        <div className="text-center">
           {sentimentResult && (
             <div>
-              <p>Sentiment Score: {sentimentResult.score}</p>
-              <p>Sentiment Magnitude: {sentimentResult.magnitude}</p>
+              <p>Sentiment Score: {sentimentResult.score.toFixed(2)}</p>
+              <p>Sentiment Magnitude: {sentimentResult.magnitude.toFixed(2)}</p>
               <p>Sentiment Value: {sentimentValue}</p> 
             </div>
           )}
-            {moderationResult && moderationResult.length > 0 && (
-                <div>
-                    <h3>Moderation Warnings:</h3>
-                    <ul>
-                        {moderationResult.map((category, index) => (
-                            <li key={index}>
-                                {category.name} - Confidence: {category.confidence.toFixed(2)}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+            {moderationResult && moderationResult.length > 0 ? (
+              <div className="flex-col">
+              {/* Display the general warning message once */}
+              <p className="text-red-500 font-bold opacity-70 text-xs">
+                We've flagged harmful content.  
+                <span className="font-semibold block">
+                  If you're feeling distressed or struggling, please seek professional help. 
+                </span>
+              </p>
+
+              {/* List the harmful content categories */}
+              <h3 className="mt-2">Harmful Content Detected:</h3>
+              <ul>
+                {moderationResult.map((category, index) => (
+                  <li key={index}>
+                    <strong>{category.name}</strong> - Confidence: {category.confidence.toFixed(2)}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            ) : null}
         </div>
         </>
      )}

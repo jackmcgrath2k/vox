@@ -15,9 +15,13 @@ export default async function handleClientScriptLoad(req, res) {
         const [result] = await client.analyzeSentiment({document});
         const sentiment = result.documentSentiment;
 
+        const [moderationResult] = await client.moderateText({document});
+        const moderationCategories = moderationResult.moderationCategories;
+
         res.status(200).json({
             sentimentScore: sentiment.score,
             sentimentMagnitude: sentiment.magnitude,
+            moderationCategories: moderationCategories,
         });
     } catch (error) {
         console.error('Error anaylsing sentiment:', error);

@@ -9,58 +9,95 @@ import {
     CardTitle,
   } from "@/components/ui/card"
   import { Separator } from "@/components/ui/separator"
+  import {
+    Table,
+    TableBody,
+    TableCaption,
+    TableCell,
+    TableHead,
+    TableHeader,
+    TableRow,
+    TableFooter,
+  } from "@/components/ui/table"
+  
 
-const fakeJournalEntries = [
-  { id: 1, date: '15 January 2024' },
-  { id: 2, date: '16 January 2024' },
-  { id: 3, date: '17 January 2024' },
-  { id: 4, date: '18 January 2024' },
-  { id: 5, date: '19 January 2024' },
-  { id: 6, date: '20 January 2024' },
-  { id: 7, date: '21 January 2024' },
-  { id: 8, date: '22 January 2024' },
-];
+  const invoices = [
+    {
+      invoice: "INV001",
+      paymentStatus: "Paid",
+      totalAmount: "$250.00",
+      paymentMethod: "Credit Card",
+    },
+    {
+      invoice: "INV002",
+      paymentStatus: "Pending",
+      totalAmount: "$150.00",
+      paymentMethod: "PayPal",
+    },
+    {
+      invoice: "INV003",
+      paymentStatus: "Unpaid",
+      totalAmount: "$350.00",
+      paymentMethod: "Bank Transfer",
+    },
+    {
+      invoice: "INV004",
+      paymentStatus: "Paid",
+      totalAmount: "$450.00",
+      paymentMethod: "Credit Card",
+    },
+    {
+      invoice: "INV005",
+      paymentStatus: "Paid",
+      totalAmount: "$550.00",
+      paymentMethod: "PayPal",
+    },
+    {
+      invoice: "INV006",
+      paymentStatus: "Pending",
+      totalAmount: "$200.00",
+      paymentMethod: "Bank Transfer",
+    },
+    {
+      invoice: "INV007",
+      paymentStatus: "Unpaid",
+      totalAmount: "$300.00",
+      paymentMethod: "Credit Card",
+    },
+  ]
 
 const JournalGrid = () => {
   return (
-    <div className="container mx-auto p-4">
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {fakeJournalEntries.map((entry) => (
-          <div
-            key={entry.id}
-            className="hover:scale-105 duration-500 cursor-pointer"
-            onClick={() => alert(`Clicked on ${entry.date}`)}
-          >
-            <Card className="text-center">
-                <CardHeader>
-                <div className="flex flex-col items-center gap-4">
-                <CardTitle className="font-black text-4xl">Entry</CardTitle>
-                </div>
-                <CardDescription>
-                    Mood: Positive
-                </CardDescription>
-                </CardHeader>
-                <Separator orientation="horizontal" className="bg-gray-300 mb-5" />
-                <CardContent className="space-y-2">
-                <div className="space-y-1 text-center">
-                    <h1 className="text-4xl font-semibold">{entry.date}</h1>
-                </div>
-                </CardContent>
-                <Separator orientation="horizontal" className="bg-gray-300" />
-                <CardFooter className="flex justify-center">
-                <div className="my-5 text-gray-400">
-                    VOX
-                </div>
-                </CardFooter>
-                </Card>
-          </div>
+    <div className='border-white m-24'>
+    <Table>
+      <TableCaption>A list of your recent invoices.</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">Invoice</TableHead>
+          <TableHead>Status</TableHead>
+          <TableHead>Method</TableHead>
+          <TableHead className="text-right">Amount</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {invoices.map((invoice) => (
+          <TableRow key={invoice.invoice}>
+            <TableCell className="font-medium">{invoice.invoice}</TableCell>
+            <TableCell>{invoice.paymentStatus}</TableCell>
+            <TableCell>{invoice.paymentMethod}</TableCell>
+            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+          </TableRow>
         ))}
-      </div>
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={3}>Total</TableCell>
+          <TableCell className="text-right">$2,500.00</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
     </div>
-  );
-};
+  )
+}
 
 export default JournalGrid;
-
-
-

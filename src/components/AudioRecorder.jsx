@@ -13,6 +13,7 @@ export default function AudioRecorder() {
     const [transcription, setTranscription] = useState(null);
     const [sentimentResult, setSentimentResult] = useState(null);
     const [sentimentValue, setSentimentValue] = useState(null);
+    const [moderationResult, setModerationResult] = useState([]);
     const {
       result,
       isLoaded,
@@ -77,10 +78,14 @@ export default function AudioRecorder() {
             const value = getSentimentValue(data.sentimentScore);
             setSentimentValue(value); // Save the sentiment value
           }
-        })
-        .catch((error) => {
-          console.error("Error fetching sentiment analysis:", error);
-        })
+          if (data.moderationCategories !== undefined && data.moderationCategories.length > 0) {
+            console.log("Moderation Categories:", data.moderationCategories);
+            setModerationResult(data.moderationCategories); // Save moderation categories to state
+        }
+          })
+          .catch((error) => {
+              console.error("Error fetching sentiment or moderation analysis:", error);
+              })
         .finally(() => {
           setIsLoading(false);
           console.log("Loading finished");
@@ -218,6 +223,18 @@ export default function AudioRecorder() {
               <p>Sentiment Value: {sentimentValue}</p> 
             </div>
           )}
+            {moderationResult && moderationResult.length > 0 && (
+                <div>
+                    <h3>Moderation Warnings:</h3>
+                    <ul>
+                        {moderationResult.map((category, index) => (
+                            <li key={index}>
+                                {category.name} - Confidence: {category.confidence.toFixed(2)}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
         </>
      )}

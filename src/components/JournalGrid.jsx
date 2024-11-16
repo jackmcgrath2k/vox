@@ -45,7 +45,7 @@ const ToggleBookmark = () => {
 
 const JournalGrid = () => {
   return (
-    
+
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline">View Entries</Button>
@@ -62,6 +62,9 @@ const JournalGrid = () => {
           <ScrollArea className="h-1/6 w-full rounded-md border">
       <div className="p-4">
         <h4 className="mb-4 text-sm font-medium leading-none">Journal Entries</h4>
+        <div>
+        buttons
+      </div>
         {tags.map((tag) => (
           <>
             <div key={tag} className="text-sm">
@@ -150,7 +153,7 @@ const JournalGrid = () => {
         </div>
       </SheetContent>
     </Sheet>
-    
+
   )
 }
 

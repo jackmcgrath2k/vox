@@ -3,6 +3,7 @@
 import React from "react";
 import Header from "../components/Header";
 import AudioRecorder from "../components/AudioRecorder";
+import Footer from "@/components/Footer";
 import { Toaster } from "@/components/ui/toaster";
 
 
@@ -19,14 +20,8 @@ export default function Home() {
         <AudioRecorder />
         <Toaster />
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <div>
-          <h1>
-            jack mcg app
-          </h1>
-        </div>
-      </footer>
     </div>
+    <Footer />
     </div>
   );
 };
